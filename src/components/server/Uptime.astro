@@ -47,10 +47,10 @@ const colorMap = {
 const color = colorMap[status] || "--color-gray-500";
 const style = `background-color: var(${color});`;
 
-// Set caching headers for 60 secs and allow stale content for 30 secs
+// Set caching headers for 5 min and allow stale content for 1 minute
 Astro.response.headers.set(
   "Cache-Control",
-  "public, max-age=60, stale-while-revalidate=30",
+  "public, max-age=300, stale-while-revalidate=60",
 );
 ---
 

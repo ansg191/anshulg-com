@@ -17,9 +17,15 @@ const response = await fetch(`${KUMA_URL}/metrics`, {
     Authorization: `Basic ${Buffer.from(`:${KUMA_API_KEY}`).toString("base64")}`,
   },
 });
-const metrics = await response.text();
+
+if (!response.ok) {
+  Astro.response.status = response.status;
+  Astro.response.statusText = response.statusText;
+  return;
+}
 
 // Parse the metrics to find the status of the monitor with the given name
+const metrics = await response.text();
 const status = metrics
   .split("\n")
   .filter((line) => line.startsWith("monitor_status"))
@@ -36,6 +42,12 @@ const status = metrics
   })
   .filter((m) => m.name === name)
   .map((m) => m.status)[0];
+
+if (status == null) {
+  Astro.response.status = 404;
+  Astro.response.statusText = "Not Found";
+  return;
+}
 
 // Map the status to a color
 const colorMap = {

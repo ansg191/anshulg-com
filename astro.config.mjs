@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
@@ -15,6 +15,19 @@ export default defineConfig({
     mode: "standalone",
   }),
   integrations: [sitemap()],
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: "JetBrains Mono",
+        cssVariable: "--jetbrains-mono",
+        fallbacks: ["monospace"],
+        weights: [400],
+        subsets: ["latin"],
+        styles: ["normal"],
+      },
+    ],
+  },
   env: {
     schema: {
       KUMA_URL: envField.string({

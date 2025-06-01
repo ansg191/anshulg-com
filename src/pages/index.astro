@@ -3,6 +3,8 @@ import ManPage from "@layouts/ManPage.astro";
 import ManItem from "@components/ManItem.astro";
 import Uptime from "../components/server/Uptime.astro";
 import UptimeFallback from "../components/server/UptimeFallback.astro";
+
+const projectsWidth = 13;
 ---
 
 <ManPage title="Miscellaneous Information Manual">
@@ -33,7 +35,7 @@ import UptimeFallback from "../components/server/UptimeFallback.astro";
       indent={8}
       key="HomeLab"
       keyLink="https://github.com/ansg191-lab/anshulg-cluster"
-      keylen={10}
+      keylen={projectsWidth}
     >
       A GKE and bare-metal cluster managed by <i>ArgoCD</i> and <i>Terraform</i>
     </ManItem>
@@ -41,9 +43,44 @@ import UptimeFallback from "../components/server/UptimeFallback.astro";
       indent={8}
       key="packed_ptr"
       keyLink="https://github.com/ansg191/packed_ptr"
-      keylen={10}
+      keylen={projectsWidth}
     >
       A configurable & generic tagged pointer implementation in <i>Rust</i>
+    </ManItem>
+    <ManItem
+      indent={8}
+      key="github-mirror"
+      keyLink="https://github.com/ansg191/github-mirror"
+      keylen={projectsWidth}
+    >
+      A <i>UNIX</i> utility written in pure <i>C</i> to automatically mirror all
+      GitHub repos to a private Git server
+    </ManItem>
+    <ManItem
+      indent={8}
+      key="rtic-fridge"
+      keyLink="https://github.com/ansg191/rtic-fridge"
+      keylen={projectsWidth}
+    >
+      A refrigeration unit using RTIC on a STM32F042K6 written in <i>Rust</i>
+    </ManItem>
+    <ManItem
+      indent={8}
+      key="traefik-dns"
+      keyLink="https://github.com/ansg191/traefik-dns-rs"
+      keylen={projectsWidth}
+    >
+      Updates A DNS nameserver provider using routes defined in a <i>Traefik</i>
+      router originally written in <i>Go</i>, now rewritten in <i>Rust</i>
+    </ManItem>
+    <ManItem
+      indent={8}
+      key="remote-worker"
+      keyLink="https://github.com/ansg191/remote-worker"
+      keylen={projectsWidth}
+    >
+      A project to encode videos stored in S3 buckets by launching
+      GPU-accelerated EC2 instances on-the-fly written in <i>Go</i>
     </ManItem>
   </section>
 
@@ -61,6 +98,20 @@ import UptimeFallback from "../components/server/UptimeFallback.astro";
       </span>
       <span>
         Personal backup <i>git</i> server for GitHub projects
+      </span>
+    </ManItem>
+    <ManItem
+      key="Apt Repo"
+      keyLink="https://apt.anshulg.com"
+      keylen={10}
+    >
+      <span slot="key-extra">
+        <Uptime name="Debian Apt Server" server:defer>
+          <UptimeFallback slot="fallback" />
+        </Uptime>
+      </span>
+      <span>
+        Personal <i>apt</i> repository for Debian-based systems
       </span>
     </ManItem>
   </section>

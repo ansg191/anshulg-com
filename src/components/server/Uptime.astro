@@ -3,13 +3,19 @@
  * Server Island component to grab uptime from Uptime Kuma.
  */
 
-import { KUMA_URL } from "astro:env/client";
-import { KUMA_API_KEY } from "astro:env/server";
+import { KUMA_URL, KUMA_API_KEY } from "astro:env/server";
 
 interface Props {
   name: string;
 }
 const { name } = Astro.props;
+
+// Ensure ENV variables are set
+if (!KUMA_URL || !KUMA_API_KEY) {
+  Astro.response.status = 500;
+  Astro.response.statusText = "Internal Server Error";
+  return;
+}
 
 // Fetch the metrics from Uptime Kuma
 const response = await fetch(`${KUMA_URL}/metrics`, {

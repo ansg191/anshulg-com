@@ -31,15 +31,15 @@ export default defineConfig({
   env: {
     schema: {
       KUMA_URL: envField.string({
-        context: "client",
-        access: "public",
+        context: "server",
+        access: "secret",
         url: true,
-        optional: false,
+        optional: true,
       }),
       KUMA_API_KEY: envField.string({
         context: "server",
         access: "secret",
-        optional: false,
+        optional: true,
       }),
     },
   },

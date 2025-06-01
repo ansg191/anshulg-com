@@ -24,7 +24,7 @@ export default defineConfig({
         fallbacks: ["monospace"],
         weights: [400],
         subsets: ["latin"],
-        styles: ["normal"],
+        styles: ["normal", "italic"],
       },
     ],
   },

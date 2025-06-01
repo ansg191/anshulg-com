@@ -10,9 +10,7 @@ const projectsWidth = 13;
 <ManPage title="Miscellaneous Information Manual">
   <section>
     <h2 class="font-extrabold text-xl">NAME</h2>
-    <ManItem key="Anshul Gupta">
-      A programmer
-    </ManItem>
+    <ManItem key="Anshul Gupta"> A programmer</ManItem>
   </section>
 
   <section>
@@ -28,9 +26,7 @@ const projectsWidth = 13;
   <section>
     <h2 class="font-extrabold text-xl">DESCRIPTION</h2>
     <p class="m-4">Description goes here...</p>
-    <p class="m-4">
-      Some projects I've worked on:
-    </p>
+    <p class="m-4">Some projects I've worked on:</p>
     <ManItem
       indent={8}
       key="HomeLab"
@@ -86,11 +82,7 @@ const projectsWidth = 13;
 
   <section>
     <h2 class="font-extrabold text-xl">SEE ALSO</h2>
-    <ManItem
-      key="Git Server"
-      keyLink="https://git.anshulg.com"
-      keylen={10}
-    >
+    <ManItem key="Git Server" keyLink="https://git.anshulg.com" keylen={10}>
       <span slot="key-extra">
         <Uptime name="CGit Server" server:defer>
           <UptimeFallback slot="fallback" />
@@ -100,11 +92,7 @@ const projectsWidth = 13;
         Personal backup <i>git</i> server for GitHub projects
       </span>
     </ManItem>
-    <ManItem
-      key="Apt Repo"
-      keyLink="https://apt.anshulg.com"
-      keylen={10}
-    >
+    <ManItem key="Apt Repo" keyLink="https://apt.anshulg.com" keylen={10}>
       <span slot="key-extra">
         <Uptime name="Debian Apt Server" server:defer>
           <UptimeFallback slot="fallback" />

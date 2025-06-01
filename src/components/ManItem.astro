@@ -1,43 +1,52 @@
 ---
 interface Props {
   key?: string;
-  keyLink?: string,
+  keyLink?: string;
   valueLink?: string;
 
   indent?: number;
   keylen?: number;
 }
 
-const {
-  key,
-  keyLink,
-  valueLink,
-  indent = 4,
-  keylen
-} = Astro.props;
+const { key, keyLink, valueLink, indent = 4, keylen } = Astro.props;
 
-const keyPadding = (key && keylen) ? keylen - key.length : 0;
+const keyPadding = key && keylen ? keylen - key.length : 0;
 ---
 
 <p class="m-4" style=`margin-left: calc(var(--spacing) * ${indent})`>
-  {keyLink ? (
-      <a href={keyLink} target="_blank" rel="noopener noreferrer" class="relative inline-block">
+  {
+    keyLink ? (
+      <a
+        href={keyLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="relative inline-block"
+      >
         <span class="key link">{key}</span>
         <slot name="key-extra" />
       </a>
-    ) :
-    <>
-      <span class="key">{key}</span>
-      <slot name="key-extra" />
-    </>
+    ) : (
+      <>
+        <span class="key">{key}</span>
+        <slot name="key-extra" />
+      </>
+    )
   }
   <span style=`padding-left: ${keyPadding}ch`>&mdash;</span>
-  {valueLink ? (
-      <a href={valueLink} target="_blank" rel="noopener noreferrer" class="link">
+  {
+    valueLink ? (
+      <a
+        href={valueLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link"
+      >
         <slot />
       </a>
-    ) :
-    <slot />}
+    ) : (
+      <slot />
+    )
+  }
 </p>
 
 <style>

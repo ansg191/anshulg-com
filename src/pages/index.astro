@@ -1,0 +1,67 @@
+---
+import ManPage from "@layouts/ManPage.astro";
+import ManItem from "@components/ManItem.astro";
+import Uptime from "../components/server/Uptime.astro";
+import UptimeFallback from "../components/server/UptimeFallback.astro";
+---
+
+<ManPage title="Miscellaneous Information Manual">
+  <section>
+    <h2 class="font-extrabold text-xl">NAME</h2>
+    <ManItem key="Anshul Gupta">
+      A programmer
+    </ManItem>
+  </section>
+
+  <section>
+    <h2 class="font-extrabold text-xl">SYNOPSIS</h2>
+    <ManItem key="email" keylen={6} valueLink="mailto:ansg191@anshulg.com">
+      ansg191@anshulg.com
+    </ManItem>
+    <ManItem key="github" keylen={6} valueLink="https://github.com/ansg191">
+      ansg191
+    </ManItem>
+  </section>
+
+  <section>
+    <h2 class="font-extrabold text-xl">DESCRIPTION</h2>
+    <p class="m-4">Description goes here...</p>
+    <p class="m-4">
+      Some projects I've worked on:
+    </p>
+    <ManItem
+      indent={8}
+      key="HomeLab"
+      keyLink="https://github.com/ansg191-lab/anshulg-cluster"
+      keylen={10}
+    >
+      A GKE and bare-metal cluster managed by <b>ArgoCD</b> and <b>Terraform</b>
+    </ManItem>
+    <ManItem
+      indent={8}
+      key="packed_ptr"
+      keyLink="https://github.com/ansg191/packed_ptr"
+      keylen={10}
+    >
+      A configurable & generic tagged pointer implementation in <b>Rust</b>
+    </ManItem>
+  </section>
+
+  <section>
+    <h2 class="font-extrabold text-xl">SEE ALSO</h2>
+    <ManItem
+      key="Git Server"
+      keyLink="https://git.anshulg.com"
+      keylen={10}
+    >
+      <span slot="key-extra">
+        <Uptime name="CGit Server" server:defer>
+          <UptimeFallback slot="fallback" />
+        </Uptime>
+      </span>
+      <span>
+        Personal backup <b>git</b> server for GitHub projects
+      </span>
+    </ManItem>
+  </section>
+</ManPage>

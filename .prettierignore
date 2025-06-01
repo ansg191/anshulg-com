@@ -1,0 +1,4 @@
+# Ignore artifacts:
+.astro/
+dist/
+node_modules/

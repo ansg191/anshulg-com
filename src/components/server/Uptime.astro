@@ -1,0 +1,55 @@
+---
+/**
+  * Server Island component to grab uptime from Uptime Kuma.
+  */
+
+import { KUMA_URL } from "astro:env/client";
+import { KUMA_API_KEY } from "astro:env/server";
+
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+
+const response = await fetch(`${KUMA_URL}/metrics`, {
+  headers: {
+    Authorization: `Basic ${Buffer.from(`:${KUMA_API_KEY}`).toString("base64")}`
+  }
+});
+const metrics = await response.text();
+
+const status = metrics.split("\n")
+  .filter(line => line.startsWith("monitor_status"))
+  .map(l => {
+    return {
+      status: l.substring(l.length - 1),
+      name: l.substring("monitor_status{".length, l.length - 3)
+        .split(",")
+        .map(kv => kv.split("=", 2))
+        .filter(kv => kv[0] === "monitor_name")
+        .map(kv => kv[1].replace(/"/g, ""))[0]
+    };
+  })
+  .filter(m => m.name === name)
+  .map(m => m.status)[0];
+
+const colorMap = {
+  "0": "--color-red-500",
+  "1": "--color-green-500",
+  "2": "--color-yellow-500",
+  "3": "--color-orange-500"
+} as Record<string, string>;
+const color = colorMap[status] || "--color-gray-500";
+const style = `background-color: var(${color});`;
+---
+<span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
+  <span
+    class="absolute inset-0 rounded-full bg-gray-500 opacity-75 animate-ping"
+    style={style}
+  />
+  <span
+    class="relative block w-2.5 h-2.5 rounded-full bg-gray-500 shadow shadow-green-400/50"
+    style={style}
+  />
+</span>
+

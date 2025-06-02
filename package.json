@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "prepare": "husky && husky install"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@astrojs/node": "^9.2.2",

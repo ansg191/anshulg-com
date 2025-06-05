@@ -16,6 +16,9 @@ export default defineConfig({
   }),
   integrations: [sitemap()],
   experimental: {
+    csp: {
+      directives: ["object-src 'none'"],
+    },
     fonts: [
       {
         provider: fontProviders.google(),

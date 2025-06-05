@@ -5,21 +5,38 @@ import dayjs from "dayjs";
 
 interface Props {
   title: string;
-  manual?: string;
+  section?: number;
 }
 
-const { title, manual = "Miscellaneous Information Manual" } = Astro.props;
+const { title, section = 7 } = Astro.props;
 
 const date = dayjs().format("ddd, MMMM D, YYYY");
+const manTitle = title.toUpperCase();
+
+const sectionMap = {
+  1: "General Commands Manual",
+  2: "System Calls Manual",
+  3: "Library Functions Manual",
+  4: "Kernel Interfaces Manual",
+  5: "File Formats Manual",
+  6: "Games Manual",
+  7: "Miscellaneous Information Manual",
+  8: "System Manager's Manual",
+  9: "Kernel Developer's Manual",
+} as Record<number, string>;
+if (!Object.prototype.hasOwnProperty.call(sectionMap, section)) {
+  throw new Error(`Invalid section number: ${section}`);
+}
+const manual = sectionMap[section];
 ---
 
 <Layout title={title}>
   <header
     class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400"
   >
-    <div>ANSHUL GUPTA (7)</div>
+    <div>{manTitle} ({section})</div>
     <h1>{manual}</h1>
-    <div>ANSHUL GUPTA (7)</div>
+    <div>{manTitle} ({section})</div>
   </header>
   <main class="font-mono pt-4">
     <slot />
@@ -28,7 +45,7 @@ const date = dayjs().format("ddd, MMMM D, YYYY");
     class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400"
   >
     <div>{date}</div>
-    <div>ANSHUL GUPTA (7)</div>
+    <div>{manTitle} ({section})</div>
   </footer>
 </Layout>
 

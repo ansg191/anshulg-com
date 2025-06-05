@@ -22,7 +22,7 @@ const keyPadding = key && keylen ? keylen - key.length : 0;
         rel="noopener noreferrer"
         class="relative inline-block"
       >
-        <span class="key link">{key}</span>
+        <span class="key">{key}</span>
         <slot name="key-extra" />
       </a>
     ) : (
@@ -35,12 +35,7 @@ const keyPadding = key && keylen ? keylen - key.length : 0;
   <span style=`padding-left: ${keyPadding}ch`>&mdash;</span>
   {
     valueLink ? (
-      <a
-        href={valueLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="link"
-      >
+      <a href={valueLink} target="_blank" rel="noopener noreferrer">
         <slot />
       </a>
     ) : (
@@ -50,12 +45,6 @@ const keyPadding = key && keylen ? keylen - key.length : 0;
 </p>
 
 <style>
-  .link {
-    color: var(--color-blue-700);
-    text-decoration-line: underline;
-    text-underline-offset: 4px;
-  }
-
   .key {
     background-color: var(--color-gray-200);
     padding: calc(var(--spacing) * 1); /* p-1 */
@@ -64,10 +53,6 @@ const keyPadding = key && keylen ? keylen - key.length : 0;
 
   /* Dark mode styles */
   @media (prefers-color-scheme: dark) {
-    .link {
-      color: var(--color-blue-300);
-    }
-
     .key {
       background-color: var(--color-gray-700);
     }

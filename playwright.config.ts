@@ -71,9 +71,24 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  webServer: {
-    command: "bun run build && bun run preview",
-    url: "http://localhost:4321",
-    reuseExistingServer: !process.env.CI,
-  },
+  webServer: [
+    {
+      command: "bun run tests/fixtures/uptime/server.js",
+      url: "http://localhost:4000/metrics",
+      name: "Uptime Server",
+      timeout: 5 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: "bun run build && bun run preview",
+      env: {
+        KUMA_URL: "http://localhost:4000",
+        KUMA_API_KEY: "test",
+      },
+      url: "http://localhost:4321",
+      name: "Astro Server",
+      timeout: 60 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });

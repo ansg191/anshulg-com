@@ -68,6 +68,15 @@ const colorMap = {
 const color = colorMap[status] || "--color-gray-500";
 const style = `background-color: var(${color});`;
 
+// Map the status to a human-readable string
+const statusMap = {
+  "0": "Down",
+  "1": "Up",
+  "2": "Pending",
+  "3": "Under Maintenance",
+} as Record<string, string>;
+const statusText = statusMap[status] || "unknown";
+
 // Set caching headers for 5 min and allow stale content for 1 minute
 Astro.response.headers.set(
   "Cache-Control",
@@ -77,15 +86,18 @@ Astro.response.headers.set(
 
 {
   show && (
-    <span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
-      <span
-        class="absolute inset-0 rounded-full bg-gray-500 opacity-75 motion-safe:animate-ping"
-        style={style}
-      />
-      <span
-        class="relative block w-2.5 h-2.5 rounded-full bg-gray-500 shadow shadow-green-400/50"
-        style={style}
-      />
-    </span>
+    <>
+      <span aria-hidden="true" class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
+        <span
+          class="absolute inset-0 rounded-full bg-gray-500 opacity-75 motion-safe:animate-ping"
+          style={style}
+        />
+        <span
+          class="relative block w-2.5 h-2.5 rounded-full bg-gray-500 shadow shadow-green-400/50"
+          style={style}
+        />
+      </span>
+      <span class="sr-only">Service Status: {statusText}</span>
+    </>
   )
 }

@@ -10,11 +10,14 @@ interface Props {
 }
 const { name } = Astro.props;
 
+let show = true;
+
 // Ensure ENV variables are set
 if (!KUMA_URL || !KUMA_API_KEY) {
-  Astro.response.status = 500;
-  Astro.response.statusText = "Internal Server Error";
-  return;
+  console.warn(
+    "Uptime Kuma URL or API Key is not set. Skipping Uptime component.",
+  );
+  show = false;
 }
 
 // Fetch the metrics from Uptime Kuma
@@ -25,9 +28,10 @@ const response = await fetch(`${KUMA_URL}/metrics`, {
 });
 
 if (!response.ok) {
-  Astro.response.status = response.status;
-  Astro.response.statusText = response.statusText;
-  return;
+  console.warn(
+    `Failed to fetch metrics from Uptime Kuma: ${response.status} ${response.statusText}`,
+  );
+  show = false;
 }
 
 // Parse the metrics to find the status of the monitor with the given name
@@ -50,9 +54,8 @@ const status = metrics
   .map((m) => m.status)[0];
 
 if (status == null) {
-  Astro.response.status = 404;
-  Astro.response.statusText = "Not Found";
-  return;
+  console.warn(`Monitor with name "${name}" not found in Uptime Kuma metrics.`);
+  show = false;
 }
 
 // Map the status to a color
@@ -64,6 +67,15 @@ const colorMap = {
 } as Record<string, string>;
 const color = colorMap[status] || "bg-gray-500";
 
+// Map the status to a human-readable string
+const statusMap = {
+  "0": "Down",
+  "1": "Up",
+  "2": "Pending",
+  "3": "Under Maintenance",
+} as Record<string, string>;
+const statusText = statusMap[status] || "unknown";
+
 // Set caching headers for 5 min and allow stale content for 1 minute
 Astro.response.headers.set(
   "Cache-Control",
@@ -71,17 +83,33 @@ Astro.response.headers.set(
 );
 ---
 
-<span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
-  <span
-    class:list={[
-      "absolute",
-      "inset-0",
-      "rounded-full",
-      "opacity-75",
-      "motion-safe:animate-ping",
-      color,
-    ]}></span>
-  <span
-    class:list={["relative", "block", "w-2.5", "h-2.5", "rounded-full", color]}
-  ></span>
-</span>
+{
+  show && (
+    <>
+      <span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
+        <span
+          aria-hidden="true"
+          class:list={[
+            "absolute",
+            "inset-0",
+            "rounded-full",
+            "opacity-75",
+            "motion-safe:animate-ping",
+            color,
+          ]}
+        />
+        <span
+          class:list={[
+            "relative",
+            "block",
+            "w-2.5",
+            "h-2.5",
+            "rounded-full",
+            color,
+          ]}
+        />
+      </span>
+      <span class="sr-only">Service Status: {statusText}</span>
+    </>
+  )
+}

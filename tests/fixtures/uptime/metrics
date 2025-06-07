@@ -1,0 +1,19 @@
+# HELP monitor_cert_days_remaining The number of days remaining until the certificate expires
+# TYPE monitor_cert_days_remaining gauge
+monitor_cert_days_remaining{monitor_name="CGit Server",monitor_type="http",monitor_url="https://git.anshulg.com",monitor_hostname="null",monitor_port="null"} 26
+monitor_cert_days_remaining{monitor_name="Debian Apt Server",monitor_type="http",monitor_url="https://apt.anshulg.com",monitor_hostname="null",monitor_port="null"} 86
+
+# HELP monitor_cert_is_valid Is the certificate still valid? (1 = Yes, 0= No)
+# TYPE monitor_cert_is_valid gauge
+monitor_cert_is_valid{monitor_name="CGit Server",monitor_type="http",monitor_url="https://git.anshulg.com",monitor_hostname="null",monitor_port="null"} 1
+monitor_cert_is_valid{monitor_name="Debian Apt Server",monitor_type="http",monitor_url="https://apt.anshulg.com",monitor_hostname="null",monitor_port="null"} 1
+
+# HELP monitor_response_time Monitor Response Time (ms)
+# TYPE monitor_response_time gauge
+monitor_response_time{monitor_name="CGit Server",monitor_type="http",monitor_url="https://git.anshulg.com",monitor_hostname="null",monitor_port="null"} 716
+monitor_response_time{monitor_name="Debian Apt Server",monitor_type="http",monitor_url="https://apt.anshulg.com",monitor_hostname="null",monitor_port="null"} 617
+
+# HELP monitor_status Monitor Status (1 = UP, 0= DOWN, 2= PENDING, 3= MAINTENANCE)
+# TYPE monitor_status gauge
+monitor_status{monitor_name="CGit Server",monitor_type="http",monitor_url="https://git.anshulg.com",monitor_hostname="null",monitor_port="null"} 1
+monitor_status{monitor_name="Debian Apt Server",monitor_type="http",monitor_url="https://apt.anshulg.com",monitor_hostname="null",monitor_port="null"} 0

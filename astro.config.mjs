@@ -5,6 +5,14 @@ import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 
+/**
+ * Disable Content Security Policy (CSP) in development mode
+ * @type {false|{directives: import("node_modules/astro/dist/core/csp/config").CspDirective[]}}
+ */
+const csp = process.env.NODE_ENV === "production" && {
+  directives: ["object-src 'none'"],
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://anshulg.com",
@@ -16,9 +24,7 @@ export default defineConfig({
   }),
   integrations: [sitemap()],
   experimental: {
-    csp: {
-      directives: ["object-src 'none'"],
-    },
+    csp,
     fonts: [
       {
         provider: fontProviders.google(),

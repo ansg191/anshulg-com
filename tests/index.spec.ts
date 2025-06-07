@@ -6,77 +6,107 @@ import {
 } from "@playwright/test";
 import { differenceCiede2000, parse } from "culori";
 
-test.beforeEach(async ({ page }) => {
-  await page.goto("/");
-});
-
-test("has title", async ({ page }) => {
-  await expect(page).toHaveTitle("Anshul Gupta");
-});
-
-test("has header", async ({ page }) => {
-  const header = page.locator("header");
-  await expect(header).toBeVisible();
-  await expect(header.locator("div").first()).toHaveText("ANSHUL GUPTA (7)");
-  await expect(header.locator("div").last()).toHaveText("ANSHUL GUPTA (7)");
-  await expect(header.locator("h1")).toHaveText(
-    "Miscellaneous Information Manual",
-  );
-});
-
-test("has Email link", async ({ page }) => {
-  const emailLink = page.getByRole("link", { name: "ansg191@anshulg.com" });
-  await expect(emailLink).toBeVisible();
-  await expect(emailLink).toHaveText("ansg191@anshulg.com");
-  await expect(emailLink).toHaveAttribute("href", "mailto:ansg191@anshulg.com");
-});
-
-test("has GitHub link", async ({ page, context }) => {
-  const ghLink = page.getByRole("link", { name: "ansg191" }).nth(1);
-  await checkLinkNewTab(context, ghLink, "https://github.com/ansg191");
-});
-
-test.describe("Uptime Indicator", () => {
-  test("has good Uptime indicator", async ({ page }) => {
+test.describe("console checks", () => {
+  test("no console errors", async ({ page }) => {
+    const messages: string[] = [];
+    page.on("console", (msg) => {
+      if (msg.type() === "error") {
+        messages.push(msg.text());
+      }
+    });
+    await page.goto("/");
     await page.waitForLoadState("networkidle");
+    expect(messages).toEqual([]);
+  });
+  test("no console warnings", async ({ page }) => {
+    const messages: string[] = [];
+    page.on("console", (msg) => {
+      if (msg.type() === "warning") {
+        messages.push(msg.text());
+      }
+    });
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    expect(messages).toEqual([]);
+  });
+});
 
-    const link = page.getByRole("link", { name: "Git Server" });
-    await expect(link).toBeVisible();
-
-    const el = link.locator("span.absolute").nth(1);
-    await expect(el).toBeVisible();
-
-    // Check that the color is green
-    const bgColor = await el.evaluate(
-      (el) => getComputedStyle(el).backgroundColor,
-    );
-    const expColor = "oklch(72.3% 0.219 149.579)"; // green-500
-    expect(areColorsSimilar(expColor, bgColor)).toBe(true);
-
-    // Check that the Screen Reader text is correct
-    const srEl = link.locator("span.sr-only");
-    await expect(srEl).toHaveText("Service Status: Up");
+test.describe("contents", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
   });
 
-  test("has bad Uptime indicator", async ({ page }) => {
-    await page.waitForLoadState("networkidle");
+  test("has title", async ({ page }) => {
+    await expect(page).toHaveTitle("Anshul Gupta");
+  });
 
-    const link = page.getByRole("link", { name: "Apt Repo" });
-    await expect(link).toBeVisible();
-
-    const el = link.locator("span.absolute").nth(1);
-    await expect(el).toBeVisible();
-
-    // Check that the color is red
-    const bgColor = await el.evaluate(
-      (el) => getComputedStyle(el).backgroundColor,
+  test("has header", async ({ page }) => {
+    const header = page.locator("header");
+    await expect(header).toBeVisible();
+    await expect(header.locator("div").first()).toHaveText("ANSHUL GUPTA (7)");
+    await expect(header.locator("div").last()).toHaveText("ANSHUL GUPTA (7)");
+    await expect(header.locator("h1")).toHaveText(
+      "Miscellaneous Information Manual",
     );
-    const expColor = "oklch(63.7% 0.237 25.331)"; // red-500
-    expect(areColorsSimilar(expColor, bgColor)).toBe(true);
+  });
 
-    // Check that the Screen Reader text is correct
-    const srEl = link.locator("span.sr-only");
-    await expect(srEl).toHaveText("Service Status: Down");
+  test("has Email link", async ({ page }) => {
+    const emailLink = page.getByRole("link", { name: "ansg191@anshulg.com" });
+    await expect(emailLink).toBeVisible();
+    await expect(emailLink).toHaveText("ansg191@anshulg.com");
+    await expect(emailLink).toHaveAttribute(
+      "href",
+      "mailto:ansg191@anshulg.com",
+    );
+  });
+
+  test("has GitHub link", async ({ page, context }) => {
+    const ghLink = page.getByRole("link", { name: "ansg191" }).nth(1);
+    await checkLinkNewTab(context, ghLink, "https://github.com/ansg191");
+  });
+
+  test.describe("Uptime Indicator", () => {
+    test("has good Uptime indicator", async ({ page }) => {
+      await page.waitForLoadState("networkidle");
+
+      const link = page.getByRole("link", { name: "Git Server" });
+      await expect(link).toBeVisible();
+
+      const el = link.locator("span.absolute").nth(1);
+      await expect(el).toBeVisible();
+
+      // Check that the color is green
+      const bgColor = await el.evaluate(
+        (el) => getComputedStyle(el).backgroundColor,
+      );
+      const expColor = "oklch(72.3% 0.219 149.579)"; // green-500
+      expect(areColorsSimilar(expColor, bgColor)).toBe(true);
+
+      // Check that the Screen Reader text is correct
+      const srEl = link.locator("span.sr-only");
+      await expect(srEl).toHaveText("Service Status: Up");
+    });
+
+    test("has bad Uptime indicator", async ({ page }) => {
+      await page.waitForLoadState("networkidle");
+
+      const link = page.getByRole("link", { name: "Apt Repo" });
+      await expect(link).toBeVisible();
+
+      const el = link.locator("span.absolute").nth(1);
+      await expect(el).toBeVisible();
+
+      // Check that the color is red
+      const bgColor = await el.evaluate(
+        (el) => getComputedStyle(el).backgroundColor,
+      );
+      const expColor = "oklch(63.7% 0.237 25.331)"; // red-500
+      expect(areColorsSimilar(expColor, bgColor)).toBe(true);
+
+      // Check that the Screen Reader text is correct
+      const srEl = link.locator("span.sr-only");
+      await expect(srEl).toHaveText("Service Status: Down");
+    });
   });
 });
 

@@ -10,7 +10,15 @@ import sitemap from "@astrojs/sitemap";
  * @type {false|{directives: import("node_modules/astro/dist/core/csp/config").CspDirective[]}}
  */
 const csp = process.env.NODE_ENV === "production" && {
-  directives: ["object-src 'none'"],
+  directives: [
+    "default-src 'none'",
+    "base-uri 'none'",
+    "form-action 'none'",
+    "object-src 'none'",
+    "img-src 'self'",
+    "font-src 'self'",
+    "connect-src 'self'",
+  ],
 };
 
 // https://astro.build/config

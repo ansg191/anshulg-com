@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.2.2",
-    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/sitemap": "^3.4.1",
     "@tailwindcss/vite": "^4.1.8",
     "astro": "~5.9.1",
     "dayjs": "^1.11.13",

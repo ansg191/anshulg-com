@@ -60,13 +60,12 @@ if (status == null) {
 
 // Map the status to a color
 const colorMap = {
-  "0": "--color-red-500",
-  "1": "--color-green-500",
-  "2": "--color-yellow-500",
-  "3": "--color-orange-500",
+  "0": "bg-red-500",
+  "1": "bg-green-500",
+  "2": "bg-yellow-500",
+  "3": "bg-orange-500",
 } as Record<string, string>;
-const color = colorMap[status] || "--color-gray-500";
-const style = `background-color: var(${color});`;
+const color = colorMap[status] || "bg-gray-500";
 
 // Map the status to a human-readable string
 const statusMap = {
@@ -87,14 +86,27 @@ Astro.response.headers.set(
 {
   show && (
     <>
-      <span aria-hidden="true" class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
+      <span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
         <span
-          class="absolute inset-0 rounded-full bg-gray-500 opacity-75 motion-safe:animate-ping"
-          style={style}
+          aria-hidden="true"
+          class:list={[
+            "absolute",
+            "inset-0",
+            "rounded-full",
+            "opacity-75",
+            "motion-safe:animate-ping",
+            color,
+          ]}
         />
         <span
-          class="relative block w-2.5 h-2.5 rounded-full bg-gray-500 shadow shadow-green-400/50"
-          style={style}
+          class:list={[
+            "relative",
+            "block",
+            "w-2.5",
+            "h-2.5",
+            "rounded-full",
+            color,
+          ]}
         />
       </span>
       <span class="sr-only">Service Status: {statusText}</span>

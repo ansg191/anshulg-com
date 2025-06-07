@@ -4,16 +4,31 @@ interface Props {
   keyLink?: string;
   valueLink?: string;
 
-  indent?: number;
+  level?: number;
   keylen?: number;
 }
 
-const { key, keyLink, valueLink, indent = 4, keylen } = Astro.props;
+const { key, keyLink, valueLink, level = 1, keylen } = Astro.props;
 
 const keyPadding = key && keylen ? keylen - key.length : 0;
+if (keyPadding < 0 || keyPadding > 10) {
+  throw new Error("Key length must be between 0 and 10");
+}
+const keyPaddingClass = `pl-[${keyPadding}ch]`;
+
+const levelVariants = {
+  0: "",
+  1: "ml-4",
+  2: "ml-8",
+  3: "ml-12",
+} as Record<number, string>;
+if (level < 0 || level > 3) {
+  throw new Error("Level must be between 0 and 3");
+}
+const indent = levelVariants[level];
 ---
 
-<p class="m-4" style=`margin-left: calc(var(--spacing) * ${indent})`>
+<p class:list={["m-4", indent]}>
   {
     keyLink ? (
       <a
@@ -32,7 +47,7 @@ const keyPadding = key && keylen ? keylen - key.length : 0;
       </>
     )
   }
-  <span style=`padding-left: ${keyPadding}ch`>&mdash;</span>
+  <span class:list={[keyPaddingClass]}>&mdash;</span>
   {
     valueLink ? (
       <a href={valueLink} target="_blank" rel="noopener noreferrer">

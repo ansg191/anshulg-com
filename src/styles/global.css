@@ -33,3 +33,6 @@ a {
 
 .no-js {
 }
+
+/* For ManItem.astro */
+@source inline("pl-[{0..10..1}ch]");

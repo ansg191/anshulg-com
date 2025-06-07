@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
-    "prepare": "husky || true"
+    "prepare": "husky || true",
+    "release": "release-it"
   },
   "dependencies": {
     "@astrojs/node": "^9.2.2",
@@ -28,6 +29,7 @@
     "@types/culori": "^4.0.0",
     "@types/node": "^22.15.30",
     "@typescript-eslint/parser": "8.33.1",
+    "auto-changelog": "^2.5.0",
     "culori": "^4.0.1",
     "eslint": "9.28.0",
     "eslint-plugin-astro": "1.3.1",
@@ -35,7 +37,8 @@
     "husky": "9.1.7",
     "lint-staged": "16.1.0",
     "prettier": "3.5.3",
-    "prettier-plugin-astro": "0.14.1"
+    "prettier-plugin-astro": "0.14.1",
+    "release-it": "^19.0.3"
   },
   "lint-staged": {
     "*.{js,mjs,ts,astro,css,yml,json,md}": "prettier --write",

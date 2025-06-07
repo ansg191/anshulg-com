@@ -8,7 +8,7 @@
   },
   "git": {
     "changelog": "bunx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs",
-    "tagArgs": ["-S"]
+    "tagArgs": ["-s"]
   },
   "hooks": {
     "after:bump": "bunx auto-changelog -p"

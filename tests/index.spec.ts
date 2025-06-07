@@ -108,6 +108,25 @@ test.describe("contents", () => {
       await expect(srEl).toHaveText("Service Status: Down");
     });
   });
+
+  test.describe("no JavaScript", () => {
+    test.use({ javaScriptEnabled: false });
+    test("status indicators are not visible", async ({ page }) => {
+      await page.waitForLoadState("networkidle");
+
+      // Check that the Git Server link is still visible
+      const link = page.getByRole("link", { name: "Git Server" });
+      await expect(link).toBeVisible();
+
+      // Check that the status indicator is not visible
+      const el = link.locator("span.absolute").nth(1);
+      await expect(el).toBeHidden();
+
+      // Check that the Screen Reader text is not visible
+      const srEl = link.locator("span.sr-only");
+      await expect(srEl).toBeHidden();
+    });
+  });
 });
 
 async function checkLinkNewTab(

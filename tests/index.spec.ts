@@ -5,6 +5,7 @@ import {
   type BrowserContext,
 } from "@playwright/test";
 import { differenceCiede2000, parse } from "culori";
+import AxeBuilder from "@axe-core/playwright";
 
 test.describe("console checks", () => {
   test("no console errors", async ({ page }) => {
@@ -126,6 +127,13 @@ test.describe("contents", () => {
       const srEl = link.locator("span.sr-only");
       await expect(srEl).toBeHidden();
     });
+  });
+
+  test("should not have any automatically detectable accessibility issues", async ({
+    page,
+  }) => {
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
   });
 });
 

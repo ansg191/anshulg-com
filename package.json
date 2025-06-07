@@ -25,6 +25,7 @@
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
     "@playwright/test": "1.52.0",
     "@types/culori": "4.0.0",
     "@types/node": "22.15.30",

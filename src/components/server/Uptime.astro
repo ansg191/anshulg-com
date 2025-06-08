@@ -3,78 +3,28 @@
  * Server Island component to grab uptime from Uptime Kuma.
  */
 
-import { KUMA_URL, KUMA_API_KEY } from "astro:env/server";
+import { ServiceStatus } from "../../utils/status";
+import kuma_status from "../../utils/status/kuma";
+import upptime_status from "../../utils/status/upptime";
 
 interface Props {
   name: string;
+  src: "kuma" | "upptime";
 }
-const { name } = Astro.props;
+const { name, src } = Astro.props;
 
-let show = true;
-
-// Ensure ENV variables are set
-if (!KUMA_URL || !KUMA_API_KEY) {
-  console.warn(
-    "Uptime Kuma URL or API Key is not set. Skipping Uptime component.",
-  );
-  show = false;
-}
-
-// Fetch the metrics from Uptime Kuma
-const response = await fetch(`${KUMA_URL}/metrics`, {
-  headers: {
-    Authorization: `Basic ${Buffer.from(`:${KUMA_API_KEY}`).toString("base64")}`,
-  },
-});
-
-if (!response.ok) {
-  console.warn(
-    `Failed to fetch metrics from Uptime Kuma: ${response.status} ${response.statusText}`,
-  );
-  show = false;
+let status = ServiceStatus.UNKNOWN;
+switch (src) {
+  case "kuma":
+    status = await kuma_status(name);
+    break;
+  case "upptime":
+    status = await upptime_status(name);
+    break;
 }
 
-// Parse the metrics to find the status of the monitor with the given name
-const metrics = await response.text();
-const status = metrics
-  .split("\n")
-  .filter((line) => line.startsWith("monitor_status"))
-  .map((l) => {
-    return {
-      status: l.substring(l.length - 1),
-      name: l
-        .substring("monitor_status{".length, l.length - 3)
-        .split(",")
-        .map((kv) => kv.split("=", 2))
-        .filter((kv) => kv[0] === "monitor_name")
-        .map((kv) => kv[1].replace(/"/g, ""))[0],
-    };
-  })
-  .filter((m) => m.name === name)
-  .map((m) => m.status)[0];
-
-if (status == null) {
-  console.warn(`Monitor with name "${name}" not found in Uptime Kuma metrics.`);
-  show = false;
-}
-
-// Map the status to a color
-const colorMap = {
-  "0": "bg-red-500",
-  "1": "bg-green-500",
-  "2": "bg-yellow-500",
-  "3": "bg-orange-500",
-} as Record<string, string>;
-const color = colorMap[status] || "bg-gray-500";
-
-// Map the status to a human-readable string
-const statusMap = {
-  "0": "Down",
-  "1": "Up",
-  "2": "Pending",
-  "3": "Under Maintenance",
-} as Record<string, string>;
-const statusText = statusMap[status] || "unknown";
+const color = ServiceStatus.toColorClass(status);
+const statusText = ServiceStatus.toHumanReadable(status);
 
 // Set caching headers for 5 min and allow stale content for 1 minute
 Astro.response.headers.set(
@@ -83,33 +33,27 @@ Astro.response.headers.set(
 );
 ---
 
-{
-  show && (
-    <>
-      <span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
-        <span
-          aria-hidden="true"
-          class:list={[
-            "absolute",
-            "inset-0",
-            "rounded-full",
-            "opacity-75",
-            "motion-safe:animate-ping",
-            color,
-          ]}
-        />
-        <span
-          class:list={[
-            "relative",
-            "block",
-            "w-2.5",
-            "h-2.5",
-            "rounded-full",
-            color,
-          ]}
-        />
-      </span>
-      <span class="sr-only">Service Status: {statusText}</span>
-    </>
-  )
-}
+<>
+  <span class="absolute -top-1.5 -right-1 w-2.5 h-2.5">
+    <span
+      aria-hidden="true"
+      class:list={[
+        "absolute",
+        "inset-0",
+        "rounded-full",
+        "opacity-75",
+        "motion-safe:animate-ping",
+        color,
+      ]}></span>
+    <span
+      class:list={[
+        "relative",
+        "block",
+        "w-2.5",
+        "h-2.5",
+        "rounded-full",
+        color,
+      ]}></span>
+  </span>
+  <span class="sr-only">Service Status: {statusText}</span>
+</>

@@ -5,7 +5,7 @@
   "license": "AGPL-3.0-only",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
@@ -22,9 +22,11 @@
     "@tailwindcss/vite": "^4.1.8",
     "astro": "~5.9.1",
     "dayjs": "^1.11.13",
-    "tailwindcss": "^4.1.8"
+    "tailwindcss": "^4.1.8",
+    "zod": "^3.25.56"
   },
   "devDependencies": {
+    "@astrojs/check": "0.9.4",
     "@axe-core/playwright": "4.10.2",
     "@playwright/test": "1.52.0",
     "@types/culori": "4.0.0",
@@ -39,7 +41,8 @@
     "lint-staged": "16.1.0",
     "prettier": "3.5.3",
     "prettier-plugin-astro": "0.14.1",
-    "release-it": "19.0.3"
+    "release-it": "19.0.3",
+    "typescript": "5.8.3"
   },
   "lint-staged": {
     "*.{js,mjs,ts,astro,css,yml,json,md}": "prettier --write",

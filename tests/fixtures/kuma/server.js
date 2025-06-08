@@ -8,7 +8,7 @@ serve({
   async fetch(req) {
     const url = new URL(req.url);
     if (url.pathname === "/metrics") {
-      const body = await readFile("./tests/fixtures/uptime/metrics", "utf-8");
+      const body = await readFile("./tests/fixtures/kuma/metrics", "utf-8");
       return new Response(body, {
         headers: { "Content-Type": "text/plain" },
       });

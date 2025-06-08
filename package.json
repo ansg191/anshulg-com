@@ -22,7 +22,8 @@
     "@tailwindcss/vite": "^4.1.8",
     "astro": "~5.9.1",
     "dayjs": "^1.11.13",
-    "tailwindcss": "^4.1.8"
+    "tailwindcss": "^4.1.8",
+    "zod": "^3.25.56"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",

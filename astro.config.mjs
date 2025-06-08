@@ -58,6 +58,11 @@ export default defineConfig({
         access: "secret",
         optional: true,
       }),
+      UPPTIME_URL: envField.string({
+        context: "server",
+        access: "secret",
+        optional: true,
+      }),
     },
   },
 });

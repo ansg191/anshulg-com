@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Git",
+    "url": "https://git.anshulg.com",
+    "icon": "https://icons.duckduckgo.com/ip3/git.anshulg.com.ico",
+    "slug": "git",
+    "status": "up",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 425,
+    "timeDay": 425,
+    "timeWeek": 425,
+    "timeMonth": 425,
+    "timeYear": 425,
+    "dailyMinutesDown": {}
+  },
+  {
+    "name": "Debian Repo",
+    "url": "https://apt.anshulg.com",
+    "icon": "https://icons.duckduckgo.com/ip3/apt.anshulg.com.ico",
+    "slug": "debian-repo",
+    "status": "down",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
+    "time": 158,
+    "timeDay": 158,
+    "timeWeek": 158,
+    "timeMonth": 158,
+    "timeYear": 158,
+    "dailyMinutesDown": {}
+  }
+]

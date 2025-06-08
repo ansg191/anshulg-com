@@ -2,6 +2,7 @@
 import "@styles/global.css";
 import Layout from "@layouts/Layout.astro";
 import dayjs from "dayjs";
+import { version } from "../../package.json";
 
 interface Props {
   title: string;
@@ -45,6 +46,14 @@ const manual = sectionMap[section];
     class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400"
   >
     <div>{date}</div>
+    <div>
+      <a
+        href=`https://github.com/ansg191/anshulg-com/releases/tag/${version}`
+        target="_blank"
+        rel="noopener noreferrer"
+        class="version">v{version}</a
+      >
+    </div>
     <div>{manTitle} ({section})</div>
   </footer>
 </Layout>
@@ -54,5 +63,10 @@ const manual = sectionMap[section];
     max-width: 80ch;
     margin: 1em auto;
     padding: 0 1ch;
+  }
+
+  .version {
+    color: inherit;
+    text-decoration: inherit;
   }
 </style>

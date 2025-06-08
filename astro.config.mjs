@@ -9,7 +9,7 @@ import sitemap from "@astrojs/sitemap";
  * Disable Content Security Policy (CSP) in development mode
  * @type {false|{directives: import("node_modules/astro/dist/core/csp/config").CspDirective[]}}
  */
-const csp = process.env.NODE_ENV === "production" && {
+const csp = process.env["NODE_ENV"] === "production" && {
   directives: [
     "default-src 'none'",
     "base-uri 'none'",

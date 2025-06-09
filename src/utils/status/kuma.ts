@@ -1,5 +1,6 @@
 import { KUMA_API_KEY, KUMA_URL } from "astro:env/server";
 import { ServiceStatus } from "./index.ts";
+import logger from "@utils/logger.ts";
 
 const STATUS_MAP: Record<string, ServiceStatus> = {
   "0": ServiceStatus.DOWN,
@@ -9,24 +10,29 @@ const STATUS_MAP: Record<string, ServiceStatus> = {
 };
 
 async function kuma_status(name: string): Promise<ServiceStatus> {
+  const childLogger = logger.child({ name: "uptime kuma", site: name });
+  childLogger.debug("Fetching status");
+
   if (!KUMA_URL || !KUMA_API_KEY) {
-    console.warn(
-      "Uptime Kuma URL or API Key is not set. Skipping Uptime component.",
-    );
+    childLogger.error("URL or API Key is not set.");
     return ServiceStatus.UNKNOWN;
   }
 
   // Fetch the metrics from Uptime Kuma
-  const response = await fetch(`${KUMA_URL}/metrics`, {
-    headers: {
-      Authorization: `Basic ${Buffer.from(`:${KUMA_API_KEY}`).toString("base64")}`,
-    },
-  });
+  let response;
+  try {
+    response = await fetch(`${KUMA_URL}/metrics`, {
+      headers: {
+        Authorization: `Basic ${Buffer.from(`:${KUMA_API_KEY}`).toString("base64")}`,
+      },
+    });
+  } catch (e) {
+    childLogger.error(e, "Failed to fetch metrics");
+    return ServiceStatus.UNKNOWN;
+  }
 
   if (!response.ok) {
-    console.error(
-      `Failed to fetch metrics from Uptime Kuma: ${response.statusText}`,
-    );
+    childLogger.error(response, "Failed to fetch metrics");
     return ServiceStatus.UNKNOWN;
   }
 
@@ -50,12 +56,11 @@ async function kuma_status(name: string): Promise<ServiceStatus> {
     .map((m) => m.status)[0];
 
   if (statusStr == null) {
-    console.warn(
-      `Monitor with name "${name}" not found in Uptime Kuma metrics.`,
-    );
+    childLogger.warn("Monitor not found in metrics");
     return ServiceStatus.UNKNOWN;
   }
 
+  childLogger.debug({ status: statusStr }, "Fetched status");
   return STATUS_MAP[statusStr] ?? ServiceStatus.UNKNOWN;
 }
 

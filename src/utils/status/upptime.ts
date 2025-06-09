@@ -1,6 +1,7 @@
 import { UPPTIME_URL } from "astro:env/server";
 import { z, ZodType } from "zod/v4";
 import { ServiceStatus } from "./index.ts";
+import logger from "@utils/logger.ts";
 
 /**
  * Represents the status of a site monitored by Upptime.
@@ -55,28 +56,42 @@ const siteStatusScheme = z.object({
 const resScheme = z.array(siteStatusScheme);
 
 async function upptime_status(name: string): Promise<ServiceStatus> {
+  const childLogger = logger.child({ name: "upptime", site: name });
+  childLogger.debug("Fetching status");
+
   if (!UPPTIME_URL) {
-    console.warn("Upptime URL is not set. Skipping Uptime component.");
+    childLogger.error("URL is not set.");
     return ServiceStatus.UNKNOWN;
   }
 
   // Fetch the status from Upptime
-  const response = await fetch(UPPTIME_URL);
+  let response;
+  try {
+    response = await fetch(UPPTIME_URL);
+  } catch (e) {
+    childLogger.error(e, "Failed to fetch status");
+    return ServiceStatus.UNKNOWN;
+  }
   if (!response.ok) {
-    console.error(
-      `Failed to fetch status from Upptime: ${response.statusText}`,
-    );
+    childLogger.error(response, "Failed to fetch status");
     return ServiceStatus.UNKNOWN;
   }
 
   // Parse the JSON response to find the status of the monitor with the given name
-  const data: SiteStatus[] = resScheme.parse(await response.json());
+  let data: SiteStatus[];
+  try {
+    data = resScheme.parse(await response.json());
+  } catch (e) {
+    childLogger.error(e, "Failed to parse status");
+    return ServiceStatus.UNKNOWN;
+  }
   const site = data.find((site) => site.name === name);
   if (!site) {
-    console.warn(`No Upptime monitor found for site: ${name}`);
+    childLogger.warn(`No monitor found for site`);
     return ServiceStatus.UNKNOWN;
   }
 
+  childLogger.debug({ status: site.status }, "Fetched status");
   switch (site.status) {
     case "up":
       return ServiceStatus.UP;
@@ -86,4 +101,5 @@ async function upptime_status(name: string): Promise<ServiceStatus> {
       return ServiceStatus.DOWN;
   }
 }
+
 export default upptime_status;

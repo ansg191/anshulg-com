@@ -1,0 +1,23 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: mailto:ansg191@anshulg.com
+Expires: 2027-01-01T08:00:00.000Z
+Encryption: https://anshulg.com/ansg191.asc
+Preferred-Languages: en
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEELWtvQkSW9pvTwGxMfo+l9oZH44AFAmhGaiYACgkQfo+l9oZH
+44BGhg/+MwsTNgQG9BCrcX5tkhoBsG8yK2hNvt7+XbdTV5dR6LJJjlONSBVagQ+d
+sG6FsoUwOf6joLgGem0D5BzBNGtHAxl/b+w4yyy1OypymlAwhohgX9JUA6zOqtm4
+LH3SS89KYsBgr6eU63z3RVU4nngXzilKMiwOJiQDC92RC3zFH6bW+ApTfZXzC0kq
+HqkGxJJcqc1bdwK6v0jCBvNhtmN7flDpbmIwBzSPVuHMHjdcaPCvLf3P7Oda/OAe
+Qs+H1SU+Zigmrjd2zgZ3XouHTpJmcAkXayokK9RdLYnOgiXe2SNIRfzVA7zIgcWG
+BzxFOmN49W1Rok3olarEEty0iJCdtrB0m1NUawXS5MCRMyB2xiAKK1PZliLYesnt
+PRs1I1oJdEMxomm1PZOiRWb5vOr24+QnCqBqzEbTMlwoDMjQG0ceeK7zaVixY374
+Gf0H5cQKzuwQ4Adtr6Oy5fWHk+s/Z/9j23nl0HQlv22KXWvP5i65dDIrhx+/0537
+tvtFQhAfy2xEyzLBV7LMrMVNZsvZBO3bSSW2HeF3XSzxD1A/uRqDZMO6KGygaxGg
+tcKin2OPZvmQ76lBiUnBgDcLmASBQ+PBbayDFxpcCbDHcbvlf9jRRZI0vK0UbKGB
+Gflh8m/aiypSSxmQ5t7dl6Y2m3jno65pn5oe41455GNrRLxLI4o=
+=mZ3O
+-----END PGP SIGNATURE-----

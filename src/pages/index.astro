@@ -17,11 +17,14 @@ const projectsWidth = 13;
 
   <section>
     <h2 class="font-extrabold text-xl">SYNOPSIS</h2>
-    <ManItem key="Email" keylen={6} valueLink="mailto:ansg191@anshulg.com">
+    <ManItem key="Email" keylen={9} valueLink="mailto:ansg191@anshulg.com">
       ansg191@anshulg.com
     </ManItem>
-    <ManItem key="GitHub" keylen={6} valueLink="https://github.com/ansg191">
+    <ManItem key="GitHub" keylen={9} valueLink="https://github.com/ansg191">
       ansg191
+    </ManItem>
+    <ManItem key="Sourcehut" keylen={9} valueLink="https://sr.ht/~ansg191/">
+      ~ansg191
     </ManItem>
   </section>
 
@@ -77,6 +80,14 @@ const projectsWidth = 13;
       keylen={projectsWidth}
     >
       A refrigeration unit using RTIC on a STM32F042K6 written in <i>Rust</i>
+    </ManItem>
+    <ManItem
+      level={2}
+      key="rustyos-riscv"
+      keyLink="https://sr.ht/~ansg191/rustyos-riscv/"
+      keylen={projectsWidth}
+    >
+      A simple <i>RISC-V</i> operating system written in <i>Rust</i>
     </ManItem>
     <ManItem
       level={2}

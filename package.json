@@ -24,7 +24,7 @@
     "dayjs": "^1.11.13",
     "pino": "^9.7.0",
     "tailwindcss": "^4.1.10",
-    "zod": "^3.25.63"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",

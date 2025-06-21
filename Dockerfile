@@ -1,4 +1,4 @@
-FROM oven/bun:1.2.16@sha256:ffd754d1d771513d7b21fb013b60bfc1e22e862d310e9727726d25d1827b6a06 AS base
+FROM oven/bun:1.2.17@sha256:2cd6a1d9e3d505725243c9564cca08465fc6ffb12c065a09261992e650995ee6 AS base
 WORKDIR /app
 
 # Copy package files first to leverage Docker cache

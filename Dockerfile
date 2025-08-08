@@ -24,7 +24,7 @@ ENV NODE_ENV="production"
 RUN bun run build
 
 # Final stage
-FROM node:24.4.1-alpine@sha256:820e86612c21d0636580206d802a726f2595366e1b867e564cbc652024151e8a AS final
+FROM node:24.5.0-alpine@sha256:e8e882c692a08878d55ec8ff6c5a4a71b3edca25eda0af4406e2a160d8a93cf2 AS final
 WORKDIR /app
 
 # Ensure signals are handled correctly

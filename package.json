@@ -32,7 +32,7 @@
     "@playwright/test": "1.52.0",
     "@types/culori": "4.0.0",
     "@types/node": "24.0.14",
-    "@typescript-eslint/parser": "8.35.1",
+    "@typescript-eslint/parser": "8.51.0",
     "auto-changelog": "2.5.0",
     "culori": "4.0.2",
     "eslint": "9.32.0",

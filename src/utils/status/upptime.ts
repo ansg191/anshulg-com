@@ -1,5 +1,5 @@
 import { UPPTIME_URL } from "astro:env/server";
-import { z, ZodType } from "zod/v4";
+import { z, ZodType } from "zod";
 import { ServiceStatus } from "./index.ts";
 import logger from "@utils/logger.ts";
 

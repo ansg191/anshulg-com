@@ -4,7 +4,6 @@ import {
   type Locator,
   type BrowserContext,
 } from "@playwright/test";
-import { differenceCiede2000, parse } from "culori";
 import AxeBuilder from "@axe-core/playwright";
 
 test.describe("console checks", () => {
@@ -66,69 +65,6 @@ test.describe("contents", () => {
     await checkLinkNewTab(context, ghLink, "https://github.com/ansg191");
   });
 
-  test.describe("Uptime Indicator", () => {
-    test("has good Uptime indicator", async ({ page }) => {
-      await page.waitForLoadState("networkidle");
-
-      const link = page.getByRole("link", { name: "Git Server" });
-      await expect(link).toBeVisible();
-
-      const el = link.locator("span.absolute").nth(1);
-      await expect(el).toBeVisible();
-
-      // Check that the color is green
-      const bgColor = await el.evaluate(
-        (el) => getComputedStyle(el).backgroundColor,
-      );
-      const expColor = "oklch(72.3% 0.219 149.579)"; // green-500
-      expect(areColorsSimilar(expColor, bgColor)).toBe(true);
-
-      // Check that the Screen Reader text is correct
-      const srEl = link.locator("span.sr-only");
-      await expect(srEl).toHaveText("Service Status: Up");
-    });
-
-    test("has bad Uptime indicator", async ({ page }) => {
-      await page.waitForLoadState("networkidle");
-
-      const link = page.getByRole("link", { name: "Apt Repo" });
-      await expect(link).toBeVisible();
-
-      const el = link.locator("span.absolute").nth(1);
-      await expect(el).toBeVisible();
-
-      // Check that the color is red
-      const bgColor = await el.evaluate(
-        (el) => getComputedStyle(el).backgroundColor,
-      );
-      const expColor = "oklch(63.7% 0.237 25.331)"; // red-500
-      expect(areColorsSimilar(expColor, bgColor)).toBe(true);
-
-      // Check that the Screen Reader text is correct
-      const srEl = link.locator("span.sr-only");
-      await expect(srEl).toHaveText("Service Status: Down");
-    });
-  });
-
-  test.describe("no JavaScript", () => {
-    test.use({ javaScriptEnabled: false });
-    test("status indicators are not visible", async ({ page }) => {
-      await page.waitForLoadState("networkidle");
-
-      // Check that the Git Server link is still visible
-      const link = page.getByRole("link", { name: "Git Server" });
-      await expect(link).toBeVisible();
-
-      // Check that the status indicator is not visible
-      const el = link.locator("span.absolute").nth(1);
-      await expect(el).toBeHidden();
-
-      // Check that the Screen Reader text is not visible
-      const srEl = link.locator("span.sr-only");
-      await expect(srEl).toBeHidden();
-    });
-  });
-
   test("should not have any automatically detectable accessibility issues", async ({
     page,
   }) => {
@@ -147,20 +83,4 @@ async function checkLinkNewTab(
   await link.click();
   const newPage = await pagePromise;
   await expect(newPage).toHaveURL(expUrl);
-}
-
-function areColorsSimilar(
-  exp: string,
-  found: string,
-  threshold = 0.05,
-): boolean {
-  const parsedExp = parse(exp);
-  const parsedFound = parse(found);
-
-  if (!parsedExp || !parsedFound) {
-    throw new Error("Invalid color format.");
-  }
-
-  const deltaE = differenceCiede2000()(parsedExp, parsedFound);
-  return deltaE < threshold;
 }

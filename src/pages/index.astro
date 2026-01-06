@@ -1,8 +1,6 @@
 ---
 import ManPage from "@layouts/ManPage.astro";
 import ManItem from "@components/ManItem.astro";
-import Uptime from "../components/server/Uptime.astro";
-import UptimeFallback from "../components/server/UptimeFallback.astro";
 
 const projectsWidth = 13;
 ---
@@ -129,32 +127,12 @@ const projectsWidth = 13;
 
   <section>
     <h2 class="font-extrabold text-xl">SEE ALSO</h2>
-    <ManItem key="Git Server" keyLink="https://git.anshulg.com" keylen={10}>
-      <span slot="key-extra">
-        <Uptime name="Git" src="upptime" server:defer>
-          <UptimeFallback slot="fallback" />
-        </Uptime>
-      </span>
-      <span>
-        Personal backup <i>git</i> server for GitHub projects
-      </span>
-    </ManItem>
     <ManItem
       key="GitHub Org"
       keyLink="https://github.com/ansg191-lab"
       keylen={10}
     >
       Personal GitHub organization for projects
-    </ManItem>
-    <ManItem key="Apt Repo" keyLink="https://apt.anshulg.com" keylen={10}>
-      <span slot="key-extra">
-        <Uptime name="Debian Repo" src="upptime" server:defer>
-          <UptimeFallback slot="fallback" />
-        </Uptime>
-      </span>
-      <span>
-        Personal <i>apt</i> repository for Debian-based systems
-      </span>
     </ManItem>
   </section>
 </ManPage>

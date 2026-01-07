@@ -1,20 +1,22 @@
-FROM oven/bun:1.3.5@sha256:e90cdbaf9ccdb3d4bd693aa335c3310a6004286a880f62f79b18f9b1312a8ec3 AS base
+# Prod dependencies stage
+FROM oven/bun:1.3.5@sha256:e90cdbaf9ccdb3d4bd693aa335c3310a6004286a880f62f79b18f9b1312a8ec3 AS prod-deps
 WORKDIR /app
 
 # Copy package files first to leverage Docker cache
 COPY package.json bun.lock ./
 
-FROM base AS prod-deps
-
 # Install production dependencies
 RUN bun install --frozen-lockfile --production
 
-FROM base AS build-deps
+ARG BUILDPLATFORM
+FROM --platform=$BUILDPLATFORM oven/bun:1.3.5@sha256:e90cdbaf9ccdb3d4bd693aa335c3310a6004286a880f62f79b18f9b1312a8ec3 AS builder
+WORKDIR /app
+
+# Copy package files first to leverage Docker cache
+COPY package.json bun.lock ./
 
 # Install development dependencies
 RUN bun install --frozen-lockfile
-
-FROM build-deps AS builder
 
 # Copy the rest of the application code
 COPY . .

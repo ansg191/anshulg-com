@@ -5,21 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import node from "@astrojs/node";
 import sitemap from "@astrojs/sitemap";
 
-/**
- * Disable Content Security Policy (CSP) in development mode
- * @type {false|{directives: import("node_modules/astro/dist/core/csp/config").CspDirective[]}}
- */
-const csp = process.env["NODE_ENV"] === "production" && {
-  directives: [
-    "default-src 'none'",
-    "base-uri 'none'",
-    "form-action 'none'",
-    "object-src 'none'",
-    "img-src 'self'",
-    "font-src 'self'",
-    "connect-src 'self'",
-  ],
-};
+const isProduction = process.env["NODE_ENV"] === "production";
 
 // https://astro.build/config
 export default defineConfig({
@@ -31,20 +17,32 @@ export default defineConfig({
     mode: "standalone",
   }),
   integrations: [sitemap()],
-  experimental: {
-    csp,
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: "JetBrains Mono",
-        cssVariable: "--jetbrains-mono",
-        fallbacks: ["monospace"],
-        weights: [400],
-        subsets: ["latin"],
-        styles: ["normal", "italic"],
+  ...(isProduction && {
+    security: {
+      csp: {
+        directives: [
+          "default-src 'none'",
+          "base-uri 'none'",
+          "form-action 'none'",
+          "object-src 'none'",
+          "img-src 'self'",
+          "font-src 'self'",
+          "connect-src 'self'",
+        ],
       },
-    ],
-  },
+    },
+  }),
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: "JetBrains Mono",
+      cssVariable: "--jetbrains-mono",
+      fallbacks: ["monospace"],
+      weights: [400],
+      subsets: ["latin"],
+      styles: ["normal", "italic"],
+    },
+  ],
   env: {
     schema: {
       KUMA_URL: envField.string({

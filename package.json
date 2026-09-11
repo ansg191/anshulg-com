@@ -17,7 +17,7 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@astrojs/node": "^10.0.3",
+    "@astrojs/node": "^11.0.2",
     "@astrojs/sitemap": "^3.7.1",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^6.0.8",

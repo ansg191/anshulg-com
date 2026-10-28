@@ -61,7 +61,7 @@ test.describe("contents", () => {
   });
 
   test("has GitHub link", async ({ page, context }) => {
-    const ghLink = page.getByRole("link", { name: "ansg191" }).nth(1);
+    const ghLink = page.locator('a[href="https://github.com/ansg191"]');
     await checkLinkNewTab(context, ghLink, "https://github.com/ansg191");
   });
 

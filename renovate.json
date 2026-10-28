@@ -1,5 +1,26 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices"],
-  "rangeStrategy": "bump"
+  "extends": ["config:best-practices", "group:allNonMajor", "schedule:weekly"],
+  "rangeStrategy": "bump",
+  "constraints": {
+    "ghActionsLock": "v0.4.0"
+  },
+  "packageRules": [
+    {
+      "description": "One PR for every GitHub Actions update, majors included",
+      "matchManagers": ["github-actions"],
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "One PR for Docker base image updates, including digest-only rebuilds",
+      "matchManagers": ["dockerfile"],
+      "groupName": "Docker base images"
+    },
+    {
+      "description": "Bump Node.js in .nvmrc and the Dockerfile together",
+      "matchDatasources": ["docker", "node-version"],
+      "matchPackageNames": ["node"],
+      "groupName": "Node.js"
+    }
+  ]
 }

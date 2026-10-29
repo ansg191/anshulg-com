@@ -4,46 +4,41 @@
 version: 'v0.0.3'
 workflows:
     '.github/workflows/ci.yml':
-        - 'actions/checkout@v6.1.0'
+        - 'actions/checkout@v7.0.1'
         - 'oven-sh/setup-bun@v2.2.0'
     '.github/workflows/docker.yml':
-        - 'actions/checkout@v6.1.0'
-        - 'docker/build-push-action@v6.19.2'
+        - 'actions/checkout@v7.0.1'
+        - 'docker/build-push-action@v7.4.0'
         - 'docker/login-action@v4.7.0'
         - 'docker/metadata-action@v6.2.0'
         - 'docker/setup-buildx-action@v4.4.1'
-        - 'docker/setup-qemu-action@v3.7.0'
+        - 'docker/setup-qemu-action@v4.4.0'
     '.github/workflows/playwright.yml':
-        - 'actions/checkout@v6.1.0'
-        - 'actions/setup-node@v6.5.0'
-        - 'actions/upload-artifact@v6.0.0'
+        - 'actions/checkout@v7.0.1'
+        - 'actions/setup-node@v7.1.0'
+        - 'actions/upload-artifact@v7.0.2'
         - 'oven-sh/setup-bun@v2.2.0'
     '.github/workflows/verify-lockfile.yml':
         - 'actions/checkout@v7.0.1'
 dependencies:
-    'actions/checkout@v6.1.0':
-        ref: 'v6.1.0'
-        commit: 'sha1-d23441a48e516b6c34aea4fa41551a30e30af803'
-        owner_id: 44036562
-        repo_id: 197814629
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
         commit: 'sha1-3d3c42e5aac5ba805825da76410c181273ba90b1'
         owner_id: 44036562
         repo_id: 197814629
-    'actions/setup-node@v6.5.0':
-        ref: 'v6.5.0'
-        commit: 'sha1-249970729cb0ef3589644e2896645e5dc5ba9c38'
+    'actions/setup-node@v7.1.0':
+        ref: 'v7.1.0'
+        commit: 'sha1-949feb2413d6458794dcd2491c4babbbce0c15c1'
         owner_id: 44036562
         repo_id: 189476904
-    'actions/upload-artifact@v6.0.0':
-        ref: 'v6.0.0'
-        commit: 'sha1-b7c566a772e6b6bfb58ed0dc250532a479d7789f'
+    'actions/upload-artifact@v7.0.2':
+        ref: 'v7.0.2'
+        commit: 'sha1-cf430e030ddbb5b0abf93d22962f4752f3646cd9'
         owner_id: 44036562
         repo_id: 192625955
-    'docker/build-push-action@v6.19.2':
-        ref: 'v6.19.2'
-        commit: 'sha1-10e90e3645eae34f1e60eeb005ba3a3d33f178e8'
+    'docker/build-push-action@v7.4.0':
+        ref: 'v7.4.0'
+        commit: 'sha1-c3c9e263c25d99ce0380d002d59b67737d91b0dc'
         owner_id: 5429470
         repo_id: 241092383
     'docker/login-action@v4.7.0':
@@ -61,9 +56,9 @@ dependencies:
         commit: 'sha1-f87e5991a6d7451dcb8d9637bfbc97413f497069'
         owner_id: 5429470
         repo_id: 288485773
-    'docker/setup-qemu-action@v3.7.0':
-        ref: 'v3.7.0'
-        commit: 'sha1-c7c53464625b32c7a7e944ae62b3e17d2b600130'
+    'docker/setup-qemu-action@v4.4.0':
+        ref: 'v4.4.0'
+        commit: 'sha1-99012661954931238ded8c8b007157a8430204e1'
         owner_id: 5429470
         repo_id: 288487894
     'oven-sh/setup-bun@v2.2.0':

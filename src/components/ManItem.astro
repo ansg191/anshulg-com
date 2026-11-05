@@ -29,34 +29,30 @@ const indent = levelVariants[level];
 ---
 
 <p class:list={["m-4", indent]}>
-  {
-    keyLink ? (
-      <a
-        href={keyLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="relative inline-block"
-      >
-        <span class="key">{key}</span>
-        <slot name="key-extra" />
-      </a>
-    ) : (
-      <>
-        <span class="key">{key}</span>
-        <slot name="key-extra" />
-      </>
-    )
-  }
+  {keyLink ? (
+    <a
+      href={keyLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="relative inline-block"
+    >
+      <span class="key">{key}</span>
+      <slot name="key-extra" />
+    </a>
+  ) : (
+    <>
+      <span class="key">{key}</span>
+      <slot name="key-extra" />
+    </>
+  )}
   <span class:list={[keyPaddingClass]}>&mdash;</span>
-  {
-    valueLink ? (
-      <a href={valueLink} target="_blank" rel="noopener noreferrer">
-        <slot />
-      </a>
-    ) : (
+  {valueLink ? (
+    <a href={valueLink} target="_blank" rel="noopener noreferrer">
       <slot />
-    )
-  }
+    </a>
+  ) : (
+    <slot />
+  )}
 </p>
 
 <style>

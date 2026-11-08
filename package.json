@@ -42,11 +42,25 @@
     "lint-staged": "17.6.0",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "0.14.1",
-    "release-it": "21.1.1",
+    "release-it": "21.1.2",
     "typescript": "5.9.3"
   },
   "lint-staged": {
     "*.{js,mjs,ts,astro,css,yml,json,md}": "prettier --write",
     "*.{js,mjs,ts,astro,css}": "eslint --cache --fix"
+  },
+  "overrides": {
+    "eslint": {
+      "minimatch": "11.0.1"
+    },
+    "@eslint/config-array": {
+      "minimatch": "11.0.1"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.1"
+    },
+    "get-uri": {
+      "basic-ftp": "6.2.1"
+    }
   }
 }

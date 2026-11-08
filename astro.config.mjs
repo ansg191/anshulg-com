@@ -16,6 +16,7 @@ export default defineConfig({
   },
   adapter: node({
     mode: "standalone",
+    staticHeaders: true,
   }),
   integrations: [sitemap()],
   ...(isProduction && {
@@ -23,6 +24,7 @@ export default defineConfig({
       csp: {
         directives: [
           "default-src 'none'",
+          "frame-ancestors 'none'",
           "base-uri 'none'",
           "form-action 'none'",
           "object-src 'none'",

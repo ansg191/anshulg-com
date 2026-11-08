@@ -36,6 +36,8 @@ RUN apk add --no-cache tini
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=builder /app/dist /app/dist
 
+USER node
+
 ENV HOST="0.0.0.0"
 ENV PORT="4321"
 EXPOSE 4321

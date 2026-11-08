@@ -22,3 +22,20 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# version control
+.git/
+
+# agent worktrees
+.worktrees/
+
+# testing
+tests/
+test-results/
+playwright-report/
+playwright.config.ts
+
+# CI and editor tooling
+.github/
+.husky/
+.vscode/

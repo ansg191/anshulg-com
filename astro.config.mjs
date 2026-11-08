@@ -23,6 +23,7 @@ export default defineConfig({
       csp: {
         directives: [
           "default-src 'none'",
+          "frame-ancestors 'none'",
           "base-uri 'none'",
           "form-action 'none'",
           "object-src 'none'",

@@ -32,29 +32,33 @@ const manual = sectionMap[section];
 ---
 
 <Layout title={title}>
-  <header
-    class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400"
-  >
-    <div>{manTitle} ({section})</div>
+  <header class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400">
+    <div>
+      {manTitle} ({section})
+    </div>
     <h1>{manual}</h1>
-    <div>{manTitle} ({section})</div>
+    <div>
+      {manTitle} ({section})
+    </div>
   </header>
   <main class="font-mono pt-4">
     <slot />
   </main>
-  <footer
-    class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400"
-  >
+  <footer class="flex justify-between font-mono text-sm text-gray-500 dark:text-gray-400">
     <div>{date}</div>
     <div>
       <a
         href=`https://github.com/ansg191/anshulg-com/releases/tag/${version}`
         target="_blank"
         rel="noopener noreferrer"
-        class="version">v{version}</a
+        class="version"
       >
+        v{version}
+      </a>
     </div>
-    <div>{manTitle} ({section})</div>
+    <div>
+      {manTitle} ({section})
+    </div>
   </footer>
 </Layout>
 

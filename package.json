@@ -17,25 +17,25 @@
     "release": "release-it"
   },
   "dependencies": {
-    "@astrojs/node": "^11.1.9",
+    "@astrojs/node": "^11.1.11",
     "@astrojs/sitemap": "^3.7.4",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.4.4",
+    "@tailwindcss/vite": "^4.3.4",
+    "astro": "^7.4.7",
     "dayjs": "^1.11.23",
     "pino": "^10.4.0",
-    "tailwindcss": "^4.3.3",
+    "tailwindcss": "^4.3.4",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
     "@axe-core/playwright": "4.14.0",
-    "@playwright/test": "1.64.1",
+    "@playwright/test": "1.65.0",
     "@types/culori": "4.0.1",
-    "@types/node": "26.6.5",
-    "@typescript-eslint/parser": "8.72.0",
+    "@types/node": "26.6.6",
+    "@typescript-eslint/parser": "8.72.1",
     "auto-changelog": "2.7.0",
     "culori": "4.0.2",
-    "eslint": "10.13.0",
+    "eslint": "10.14.0",
     "eslint-plugin-astro": "3.2.1",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "husky": "9.1.7",
@@ -51,16 +51,16 @@
   },
   "overrides": {
     "eslint": {
-      "minimatch": "11.0.1"
+      "minimatch": "11.0.5"
     },
     "@eslint/config-array": {
-      "minimatch": "11.0.1"
+      "minimatch": "11.0.5"
     },
     "@typescript-eslint/typescript-estree": {
-      "minimatch": "11.0.1"
+      "minimatch": "11.0.5"
     },
     "get-uri": {
-      "basic-ftp": "6.2.1"
+      "basic-ftp": "6.2.6"
     }
   }
 }
